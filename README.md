@@ -1,6 +1,4 @@
-<h1 align="center">ExpressJS - SPACE RESTfull API</h1>
-
-This is my first backend point of sale project, and will be used in one of my projects, the SPACE POS App. The purpose of this application is to make sales transactions easier, and also easy for anyone to use. Thank you, hopefully useful. [More about Express](https://en.wikipedia.org/wiki/Express.js)
+<h1 align="center">ExpressJS - Play Chat RESTfull API</h1>
 
 ## Built With
 
@@ -38,53 +36,5 @@ DB_NAME=online_shop // Database Name
 PORT=3001 //PORT
 IP=127.0.0.1 // IP
 ```
-
-## End Point
-
-**1. GET**
-
-- `/product`(Get All Product)
-  - `{ "page": 1, "limit": 9, "sort": "product_price%20ASC"}`  
-- `/product/:id`(Get Product By ID)
-- `/product/search`(Get Product By Name)
-  - `{ "keyword": "ice"}`
-- `/category`(Get All Category)
-  - `{ "page": 1, "limit": 9, "sort": "history_name%20ASC"}`  
-- `/category/:id`(Get Category By ID)
-- `/history`(Get All History)
-- `/history/:id`(Get History By ID)
-- `/order`(Get All Order)
-- `/order/:id`(Get Order By ID)
-
-**2. POST**
-
-- `/product` (Post Product)
-  - `{ "category_id": 2, "product_name": "Ice Cream", "product_harga": 25000, "product_image": "#", "product_status" : 1 | 0}`
-- `/category` (Post Category)
-  - `{ "category_name": Foods, "category_status": 1 | 0}`
-- `/order` (Post Order)
-  - `{ "orders": [{"product_id": 11, "order_qty": 3, "order_price": 5000}, {"product_id": 12, "order_qty": "order_price": 10000}] }`
-- `/users/register` (Register New User)
-  - `{ "user_email": "user@gmail.com", "user_password": "user112233", "user_name": "User"}`
-- `/users/login` (Sign in)
-  - `{ "user_email": "admin@gmail.com", "user_password": "12345678"}`
-  
-**3. PATCH**
-
-- `/product/:id` (Update Product by id)
-  - `{ "category_id": 2, "product_name": "Ice Cream", "product_harga": 25000, "product_image": "#", "product_status" : 1 | 0}`
-- `/category/:id` (Update Category by id)
-  - `{ "category_name": Foods, "category_status": 1 | 0}`
-- `/users/:id` (Update Users Users Status by id)
-  - `{ "user_email": "user@gmail.com", "user_password": "user112233", "user_name": "User", "user_status": 1}`
-  
-**4. DELETE**
-
-- `/product/:id` (Delete Product by id)
-- `/category/:id` (Delete Category by id)
-
-**5. Documentation API**
-
-https://web.postman.co/collections/12353337-9b876826-2dc7-4a89-af8e-295fda40512b?version=latest&workspace=e23183f9-0134-41bf-8a77-b51e1037f49e
 
 # Play-Chat-Backend
