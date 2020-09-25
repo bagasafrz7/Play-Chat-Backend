@@ -80,6 +80,19 @@ module.exports = {
             return helper.response(response, 400, "Bad Request", error)
         }
     },
+    getUsersById: async (request, response) => {
+        try {
+            const { id } = request.params
+            const result = await getUserById(id)
+            if (result.length > 0) {
+                return helper.response(response, 200, "Success Get Users By Id", result)
+            } else {
+                return helper.response(response, 404, `Users By Id: ${id} Not Foud`)
+            }
+        } catch (error) {
+            return helper.response(response, 400, "Bad Request", error)
+        }
+    },
     updateProfileUser: async (request, response) => {
         try {
             const { id } = request.params
@@ -116,13 +129,14 @@ module.exports = {
                 user_email,
                 user_password: encryptPassword,
                 user_name,
+                user_image: request.file === undefined ? "" : request.file.filename,
                 user_phone,
                 user_bio,
                 user_updated_at: new Date()
             }
             const checkId = await getUserById(id)
             if (checkId.length > 0) {
-                if (checkId[0].user_image === 'blank-user.png' || request.file === undefined) {
+                if (checkId[0].user_image === 'blank-user.png' || request.file !== undefined) {
                     const result = await patchUser(setData, id)
                     return helper.response(response, 200, "Users Updated", result)
                 } else {

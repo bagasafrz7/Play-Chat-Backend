@@ -34,7 +34,7 @@ module.exports = {
     },
     getUserById: (id) => {
         return new Promise((resolve, reject) => {
-            connection.query("SELECT * FROM users WHERE user_id = ?", id, (error, result) => {
+            connection.query("SELECT user_id, user_fullname, user_email, user_name, user_image, user_phone, user_bio, user_status, user_key, user_created_at, user_updated_at FROM users WHERE user_id = ?", id, (error, result) => {
                 !error ? resolve(result) : reject(new Error(error))
             })
         })
