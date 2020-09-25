@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt')
 const helper = require('../helper/index')
-const { postUser, cekUser, getUserById, patchUser } = require('../model/users')
+const { postUser, cekUser, getUserById, getUsersByEmail, getUsersCountByEmail, patchUser } = require('../model/users')
 const jwt = require('jsonwebtoken')
 const nodemailer = require('nodemailer')
 const qs = require('querystring')
@@ -151,6 +151,25 @@ module.exports = {
                 }
             } else {
                 return helper.response(response, 400, `User By Id: ${id} Not Foud`)
+            }
+        } catch (error) {
+            return helper.response(response, 400, "Bad Request", error)
+        }
+    },
+    getUsersByEmail: async (request, response) => {
+        let { search } = request.query
+        let limit = 50
+        let totalData = await getUsersCountByEmail(search)
+        try {
+            const result = await getUsersByEmail(search, limit)
+            if (result.length > 0) {
+                const newData = {
+                    result,
+                    totalData
+                }
+                return helper.response(response, 200, "Success Get Users By Email", result)
+            } else {
+                return helper.response(response, 404, `Users By Email: ${search} Not Foud`)
             }
         } catch (error) {
             return helper.response(response, 400, "Bad Request", error)

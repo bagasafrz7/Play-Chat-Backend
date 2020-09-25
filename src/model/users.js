@@ -25,9 +25,9 @@ module.exports = {
             })
         })
     },
-    getUserById: (id) => {
+    getUsersByEmail: (search, limit) => {
         return new Promise((resolve, reject) => {
-            connection.query("SELECT * FROM users WHERE user_id = ?", id, (error, result) => {
+            connection.query(`SELECT user_id, user_fullname, user_email, user_name, user_image, user_phone, user_bio, user_status, user_key, user_created_at, user_updated_at FROM users WHERE user_email LIKE ? LIMIT ?`, [`%${search}%`, limit], (error, result) => {
                 !error ? resolve(result) : reject(new Error(error))
             })
         })
@@ -36,6 +36,13 @@ module.exports = {
         return new Promise((resolve, reject) => {
             connection.query("SELECT user_id, user_fullname, user_email, user_name, user_image, user_phone, user_bio, user_status, user_key, user_created_at, user_updated_at FROM users WHERE user_id = ?", id, (error, result) => {
                 !error ? resolve(result) : reject(new Error(error))
+            })
+        })
+    },
+    getUsersCountByEmail: (search) => {
+        return new Promise((resolve, reject) => {
+            connection.query('SELECT COUNT(*) as total FROM users WHERE user_email LIKE ?', `%${search}`, (error, result) => {
+                !error ? resolve(result[0].total) : reject(new Error(error))
             })
         })
     },
