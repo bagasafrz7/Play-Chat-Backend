@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt')
 const helper = require('../helper/index')
-const { postUser, cekUser, getUserById, getUsersByEmail, getUsersCountByEmail, patchUser } = require('../model/users')
+const { postUser, cekUser, getUserById, getUsersByEmail, getUsersCountByEmail, patchUser, deleteUser } = require('../model/users')
 const jwt = require('jsonwebtoken')
 const nodemailer = require('nodemailer')
 const qs = require('querystring')
@@ -94,6 +94,7 @@ module.exports = {
         }
     },
     updateProfileUser: async (request, response) => {
+        // console.log(request.body);
         try {
             const { id } = request.params
             const { user_fullname, user_name, user_image, user_phone, user_bio } = request.body
@@ -161,6 +162,20 @@ module.exports = {
                 return helper.response(response, 200, "Success Get Users By Email", result)
             } else {
                 return helper.response(response, 404, `Users By Email: ${search} Not Foud`)
+            }
+        } catch (error) {
+            return helper.response(response, 400, "Bad Request", error)
+        }
+    },
+    deleteUsers: async (request, response) => {
+        try {
+            const { id } = request.params
+            const checkId = await getUserById(id)
+            if (checkId.length > 0) {
+                const result = await deleteUser(id)
+                return helper.response(response, 201, "User Deleted", result)
+            } else {
+                return helper.response(response, 400, `User By Id: ${id} Not Foud`)
             }
         } catch (error) {
             return helper.response(response, 400, "Bad Request", error)

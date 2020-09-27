@@ -26,8 +26,10 @@ let upload = multer({ storage: storage, fileFilter: fileFilter, limits: limits }
 const uploadFilter = (request, response, next) => {
     upload(request, response, function (err) {
         if (err instanceof multer.MulterError) {
+            // console.log('error1')
             return helper.response(response, 400, err.message)
         } else if (err) {
+            // console.log(err.message)
             return helper.response(response, 400, err.message)
         }
         next()
