@@ -96,22 +96,13 @@ module.exports = {
     updateProfileUser: async (request, response) => {
         try {
             const { id } = request.params
-            const { user_fullname, user_email, user_password, user_name, user_image, user_phone, user_bio } = request.body
+            const { user_fullname, user_name, user_image, user_phone, user_bio } = request.body
             if (user_fullname === '') {
                 return helper.response(response, 400, "Name Cannot Be Empety")
             }
-            if (user_email === '') {
-                return helper.response(response, 400, "Email Cannot Be Empety")
-            }
-
-            if (user_password.length < 8) {
-                return helper.response(response, 400, "Password Must Be More Than 8 Characters")
-            }
-
             if (user_name === '') {
                 return helper.response(response, 400, "Username Cannot Be Empety")
             }
-
             if (user_phone === '') {
                 return helper.response(response, 400, "Number Phone Cannot Be Empety")
             } else if (user_phone.length >= 13) {
@@ -122,12 +113,12 @@ module.exports = {
                 return helper.response(response, 400, "Bio Cannot Be Empety")
             }
 
-            const salt = bcrypt.genSaltSync(10)
-            const encryptPassword = bcrypt.hashSync(user_password, salt)
+            // const salt = bcrypt.genSaltSync(10)
+            // const encryptPassword = bcrypt.hashSync(user_password, salt)
             const setData = {
                 user_fullname,
-                user_email,
-                user_password: encryptPassword,
+                // user_email,
+                // user_password: encryptPassword,
                 user_name,
                 user_image: request.file === undefined ? "" : request.file.filename,
                 user_phone,
