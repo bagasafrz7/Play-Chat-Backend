@@ -41,7 +41,7 @@ module.exports = {
     },
     getUsersCountByEmail: (search) => {
         return new Promise((resolve, reject) => {
-            connection.query('SELECT COUNT(*) as total FROM users WHERE user_email LIKE ?', `%${search}`, (error, result) => {
+            connection.query('SELECT COUNT(*) as total FROM users WHERE user_email LIKE ?', `%${search}%`, (error, result) => {
                 !error ? resolve(result[0].total) : reject(new Error(error))
             })
         })

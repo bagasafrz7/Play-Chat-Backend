@@ -159,7 +159,7 @@ module.exports = {
                     result,
                     totalData
                 }
-                return helper.response(response, 200, "Success Get Users By Email", result)
+                return helper.response(response, 200, "Success Get Users By Email", newData)
             } else {
                 return helper.response(response, 404, `Users By Email: ${search} Not Foud`)
             }
