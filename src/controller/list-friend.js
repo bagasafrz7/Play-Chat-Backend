@@ -6,26 +6,15 @@ const { request, response } = require('express')
 
 module.exports = {
     getAllFriend: async (request, response) => {
-        let { page, limit } = request.query
-        if (page === undefined || page === '') {
-            page = 1
-        } else {
-            page = parseInt(page)
-        }
-
-        if (limit === undefined || limit === '') {
-            limit = 10
-        } else {
-            limit = parseInt(limit)
-        }
-        console.log(request.query)
         try {
-            const result = await getAllFriends(page, limit);
-            console.log(result)
+            const { id } = request.params
+            const result = await getAllFriends(id);
+            // console.log(result)
             if (result.length > 0) {
                 return helper.response(response, 200, "Success Get Friend", result)
             } else {
-                return helper.response(response, 404, "Friend Not Foud", result)
+                // return helper.response(response, 404, "Friend Not Foud", result)
+                return helper.response(response, 400, `Friend By Id: ${id} Not Foud`)
             }
         } catch (error) {
             return helper.response(response, 400, "Bad Request", error)

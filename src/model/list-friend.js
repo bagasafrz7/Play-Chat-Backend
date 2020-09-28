@@ -1,9 +1,9 @@
 const connection = require('../config/mysql')
 
 module.exports = {
-    getAllFriends: (page, limit) => {
+    getAllFriends: (id) => {
         return new Promise((resolve, reject) => {
-            connection.query(`SELECT list_friend.friend_id, users.user_fullname, users.user_name, users.user_image, users.user_phone, users.user_bio from list_friend JOIN users ON list_friend.friend_id = users.user_id WHERE list_friend.user_id LIMIT ?`, limit, (error, result) => {
+            connection.query(`SELECT list_friend.friend_id, users.user_fullname, users.user_name, users.user_image, users.user_phone, users.user_bio from list_friend JOIN users ON list_friend.friend_id = users.user_id WHERE list_friend.user_id = ?`, id, (error, result) => {
                 !error ? resolve(result) : reject(new Error(error))
             })
         })
