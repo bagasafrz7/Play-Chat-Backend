@@ -8,6 +8,13 @@ module.exports = {
             })
         })
     },
+    getDataFriends: (id) => {
+        return new Promise((resolve, reject) => {
+            connection.query(`SELECT list_friend.friend_id, users.user_fullname, users.user_name, users.user_image, users.user_phone, users.user_bio, users.user_lat, users.user_lng from list_friend JOIN users ON list_friend.friend_id = users.user_id WHERE list_friend.friend_id = ?`, id, (error, result) => {
+                !error ? resolve(result) : reject(new Error(error))
+            })
+        })
+    },
     postFriend: (setData) => {
         return new Promise((resolve, reject) => {
             connection.query("INSERT INTO list_friend set ?", setData, (error, result) => {

@@ -1,5 +1,5 @@
 const helper = require('../helper/index')
-const { postFriend, getAllFriends, getFriendCount } = require('../model/list-friend')
+const { postFriend, getAllFriends, getFriendCount, getDataFriends } = require('../model/list-friend')
 const jwt = require('jsonwebtoken')
 const qs = require('querystring')
 const { request, response } = require('express')
@@ -14,6 +14,20 @@ module.exports = {
                 return helper.response(response, 200, "Success Get Friend", result)
             } else {
                 // return helper.response(response, 404, "Friend Not Foud", result)
+                return helper.response(response, 400, `Friend By Id: ${id} Not Foud`)
+            }
+        } catch (error) {
+            return helper.response(response, 400, "Bad Request", error)
+        }
+    },
+    getFriends: async (request, response) => {
+        try {
+            const { id } = request.params
+            const result = await getDataFriends(id)
+            // console.log(result)
+            if (result.length > 0) {
+                return helper.response(response, 200, "Seccess Get Friend ID", result)
+            } else {
                 return helper.response(response, 400, `Friend By Id: ${id} Not Foud`)
             }
         } catch (error) {
