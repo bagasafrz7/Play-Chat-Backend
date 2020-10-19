@@ -36,4 +36,5 @@ DB_NAME=play-chat // Database Name
 PORT=3001 //PORT
 IP=127.0.0.1 // IP
 ```
-
+## Postman Documentation
+https://documenter.getpostman.com/view/12353337/TVYAffqR
