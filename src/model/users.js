@@ -74,5 +74,27 @@ module.exports = {
                 }
             })
         })
+    },
+    patchLoaction: (setData, id) => {
+        return new Promise((resolve, reject) => {
+            connection.query("UPDATE users SET ? WHERE user_id = ?", [setData, id], (error, result) => {
+                if (!error) {
+                    const newResult = {
+                        user_id: id,
+                        ...setData
+                    }
+                    resolve(newResult)
+                } else {
+                    reject(new Error(error))
+                }
+            })
+        })
+    },
+    getLocationById: (id) => {
+        return new Promise((resolve, reject) => {
+            connection.query("SELECT user_id, user_fullname, user_email, user_name, user_lat, user_lng FROM users WHERE user_id = ?", id, (error, result) => {
+                !error ? resolve(result) : reject(new Error(error))
+            })
+        })
     }
 }
