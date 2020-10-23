@@ -19,6 +19,14 @@ io.on("connection", (socket) => {
     socket.on('privateMessage', (data) => {
         io.to(data.room_id).emit('chatMessage', data)
     });
+    socket.on('setRoom', (data) => {
+        socket.join(data.room_id)
+    });
+    socket.on('changeRoom', (data) => {
+        console.log(data)
+        socket.leave(data.oldRoom.room_id)
+        socket.join(data.newRoom.room_id)
+    });
 });
 
 
